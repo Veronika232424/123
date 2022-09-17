@@ -1,0 +1,25 @@
+import random
+
+class Dog:
+    def_init__(self,name,height,eyes,wool):
+        self.name = name
+        self.height = height
+        self.eyes= = eyes
+        self.wool = wool
+    
+    def greeting(self):
+        print("гав,гав")
+    
+    def jump(self):
+       print("Собака прыгает")
+    
+    def run(self):
+        print("Собака бегает")
+    
+    h1 = Dog("Арчи", 110, green, browne)
+    
+    print(h1.name, h1.height, h1.eyes, h1.wool)
+    
+    h1.greeting()
+    h1.jump()
+    h1.run()
