@@ -1,0 +1,166 @@
+import random
+import time
+
+
+class Human:
+    def __init__(self, name):
+        self.name = name
+        self.gladness = 0
+        self.money = 200
+        self.car = None
+
+    def nothing(self):
+        print(
+            f"{self.name} ничего не делает. Счастье: {self.gladness} Деньги: {self.money}")
+
+    def rest(self):
+        cost = 15
+        # Проверяем достаточно ли денег
+        # Если нет, то человек ничего не делает
+        # Если есть, то действия ниже
+        if self.money >= cost:
+            self.gladness += random.randint(3, 5)
+            # Уровень счастья не может быть больше 100
+            if self.gladness >= 100:
+                self.gladness = 100
+            # =======================================
+            self.money -= cost
+            print(
+                f"{self.name} отдыхает. Счастье: {self.gladness} Деньги: {self.money}")
+        else:
+            self.nothing()
+
+    def work(self):
+        self.gladness -= random.randint(2, 5)
+        # Уровень счастья не может быть меньше 0
+        if self.gladness <= 0:
+            self.gladness = 0
+        # =======================================
+        self.money += 20
+        print(f"{self.name} работает. Счастье: {self.gladness} Деньги: {self.money}")
+
+    # Добавить использование функции drive машины
+    def drive(self):
+        if self.car:
+            self.car.drive()
+
+
+class Player(Human):
+    def __init__(self, name):
+        Human.__init__(self, name)
+
+    def day(self):
+        print(f"Имя: {self.name}")
+        print(f"Счастье: {self.gladness}")
+        print(f"Деньги: {self.money}")
+        print("1. Ничего не делать")
+        print("2. Отдохнуть")
+        print("3. Работать")
+        print("4. Купить машину")
+
+    def game(self):
+        choose = input("-> ")
+        if choose == "1":
+            self.nothing()
+        elif choose == "2":
+            self.rest()
+        elif choose == "3":
+            self.work()
+        elif choose == "4":
+            # Покупка случайной машины
+            pass
+        else:
+            self.game()
+
+
+class Car:
+    def __init__(self, brend, price):
+        self.brend = brend
+        self.price = price
+        self.owner = None
+
+    def drive(self):
+        if self.owner:
+            print("Car is driving")
+
+    def buy(self, human):
+        # Проверяем есть ли у машины хозяин
+        # Проверяем хватит ли человеку денег
+        # Связываем машину с человеком
+        # В принт выводим кто купил какую машину
+        if not self.owner:
+            if human.money >= self.price:
+                human.money -= self.price
+                self.owner = human
+                self.owner.car = self
+                print(f"{human.name} купил {self.brend}")
+            else:
+                print(
+                    f"{human.name} не хватает {self.price - human.money} на покупку {self.brend}")
+        else:
+            print(f"У {self.brend} уже есть хозяин {self.owner.name}")
+
+class Dog:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+        self.owner = None
+        
+    def buy(self, human):
+       
+        if not self.owner:
+            if human.money >= self.price:
+                human.money -= self.price
+                self.owner = human
+                self.owner.Dog = self
+                print(f"{human.name} купил {self.name}")
+            else:
+                print(
+                    f"{human.name} не хватает {self.price - human.money} на покупку {self.name}")
+        else:
+            print(f"У {self.name} уже есть хозяин {self.owner.name}")
+
+
+    
+
+
+player = Player("Stephan")
+
+humans = [
+    Human(name="Andrey"),
+    Human(name="Anton"),
+    Human(name="Maxim"),
+]
+
+cars = [
+    # Создать 3 машины
+    Car("Audi", 200),
+    Car("Bentli", 100),
+    Car("Nissan", 700),
+]
+Dog = [
+   
+    Dog1("Дружок", 200),
+    Dog2("Арчи", 170),
+    Dog3("Шарик", 250),
+]
+
+days = 1
+while True:
+    print(f"Day: {days}")
+    player.day()
+    player.game()
+    for human in humans:
+        action = random.choice([human.nothing, human.rest, human.work])
+        action()
+        # Каждый день человек с шансом 5% хочет купить себе случайну машину
+        if random.randint(1, 100) <= 5:
+            car = random.choice(cars)
+            car.buy(human)
+        if random.randint(1, 100) <= 10:
+            Dog = random.choice(Dogs)
+            Dog.buy(human)
+    days += 1
+    time.sleep(0.1)
+    
+    
