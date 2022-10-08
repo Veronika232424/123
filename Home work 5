@@ -1,0 +1,12 @@
+import colorama
+
+print(dir(colorama))
+help(colorama)
+
+
+print(colorama.Fore.RED + 'some red text')
+print(colorama.Back.GREEN + 'and with a green background')
+print(colorama.Style.DIM + 'and in dim text')
+print(colorama.Style.RESET_ALL)
+
+print("Colorama это библиотека.Используется для вывода в консоли цветного текста, а также для позиционирования курсора.")
