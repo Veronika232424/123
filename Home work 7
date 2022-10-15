@@ -1,0 +1,11 @@
+def FIO():
+  names = ["Вероника", "Даша","Маша"]
+  surnames = ["Громзина", "Коваленко", "Холодова"]
+  while True:
+    yield random.choice(surnames) + random.choice(names)
+  
+l = [FIO(),FIO(),FIO()]
+i = iter(l)
+print(i)
+print(nexet(i))
+
